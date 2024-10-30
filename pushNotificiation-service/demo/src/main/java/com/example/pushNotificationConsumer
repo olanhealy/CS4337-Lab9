@@ -1,0 +1,24 @@
+package com.example.pushnotification;
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.support.Acknowledgment;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PushNotificationConsumer {
+
+    @RabbitListener(queues = "pushQueue")
+    public void receivePushNotification(String message, Message rawMessage, Acknowledgment ack) {
+        try {
+            System.out.println("Received Push Notification: " + message);
+            
+            
+            
+            ack.acknowledge();
+        } catch (Exception e) {
+            System.err.println("Error processing push notification: " + e.getMessage());
+            
+        }
+    }
+}
