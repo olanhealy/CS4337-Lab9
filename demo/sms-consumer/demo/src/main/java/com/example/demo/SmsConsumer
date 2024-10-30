@@ -1,0 +1,14 @@
+package com.example.smsconsumer;
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SmsConsumer {
+
+    @RabbitListener(queues = "smsQueue")
+    public void receiveSms(String message) {
+        System.out.println("SMS notification received: " + message);
+        
+    }
+}

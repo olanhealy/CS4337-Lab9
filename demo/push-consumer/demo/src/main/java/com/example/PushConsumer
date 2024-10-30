@@ -1,0 +1,14 @@
+package com.example.pushconsumer;
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class pushConsumer {
+
+    @RabbitListener(queues = "pushQueue")
+    public void receivepush(String message) {
+        System.out.println("push notification received: " + message);
+        
+    }
+}
