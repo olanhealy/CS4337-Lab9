@@ -12,11 +12,6 @@ import org.springframework.amqp.core.BindingBuilder;
 @Configuration
 public class RabbitMQConfig {
 
-   @Bean(name = "pimAmqpAdmin")
-    public AmqpAdmin pimAmqpAdmin(@Qualifier("defaultConnectionFactory") ConnectionFactory connectionFactory) {
-        return new RabbitAdmin(connectionFactory);
-    }
-
     @Bean
     public Exchange topicExchange() {
         return new TopicExchange("topicExchange");
@@ -59,5 +54,21 @@ public class RabbitMQConfig {
 	public Binding pushBinding(Queue pushQueue, TopicExchange exchange) {
     	return BindingBuilder.bind(pushQueue).to(exchange).with("notification.push");
 	}
+	//binding the fanout exchange
+	@Bean
+        public Binding bindEmailToFanout(FanoutExchange fanoutExchange, Queue emailQueue) {
+            return BindingBuilder.bind(emailQueue).to(fanoutExchange);
+        }
+
+        @Bean
+        public Binding bindPushToFanout(FanoutExchange fanoutExchange, Queue pushQueue) {
+            return BindingBuilder.bind(pushQueue).to(fanoutExchange);
+        }
+
+        @Bean
+        public Binding bindSmsToFanout(FanoutExchange fanoutExchange, Queue smsQueue) {
+            return BindingBuilder.bind(smsQueue).to(fanoutExchange);
+        }
+
 
 }
