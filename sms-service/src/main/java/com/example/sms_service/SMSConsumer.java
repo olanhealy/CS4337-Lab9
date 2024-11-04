@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class SmsConsumer {
+public class SMSConsumer {
     
     @Autowired
     private RabbitTemplate rabbitTemplate;
